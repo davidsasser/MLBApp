@@ -1,0 +1,324 @@
+{% extends "layout.html" %}
+{% block content %}
+   <h1>Shohei Ohtani Strikeout Swinging</h1>
+    <div>
+        <canvas id="myChart" width="420" height="600"></canvas>
+    </div>
+    <div>
+        <canvas id="myChart1" width="420" height="600"></canvas>
+    </div>
+    <div>
+        <canvas id="myChart2" width="500" height="500"></canvas>
+    </div>
+<script>
+    const data = {
+        datasets: [
+        {% for d in data1 %}
+        {
+            label: '{{ d[0] }}',
+            pointRadius: 7,
+         fill: false,
+         showLine: false,
+            data: [
+                {% for loc in d[1] %}
+                {
+                    x: {{ loc[0] }},
+                    y: {{ loc[1] }}
+
+                },
+                {% endfor %}
+            ],
+            backgroundColor: '{{ d[2] }}'
+            },
+        {% endfor %}
+        ]
+    };
+    // get chart canvas
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    // create the chart using the chart canvas
+    var myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: data,
+    options: {
+      responsive: false,
+   maintainAspectRatio: true,
+    scales: {
+        xAxes: [{
+            id: 'first-x-axis',
+            display: true,
+            stacked: true,
+            ticks: {
+                min: -1.7, // minimum value
+                max: 1.7 // maximum value
+            }
+        }],
+        yAxes: [{
+            id: 'first-y-axis',
+            display: true,
+            stacked: true,
+            ticks: {
+                min: .1, // minimum value
+                max: 4.9 // maximum value
+            }
+        }]
+    },
+      annotation: {
+        drawTime: 'beforeDatasetsDraw',
+        annotations: [{
+            type: 'box',
+
+    // optional drawTime to control layering, overrides global drawTime setting
+    drawTime: 'beforeDatasetsDraw',
+
+    // optional annotation ID (must be unique)
+    id: 'a-box-1',
+
+    // ID of the X scale to bind onto
+    xScaleID: 'first-x-axis',
+
+    // ID of the Y scale to bind onto
+    yScaleID: 'first-y-axis',
+
+    // Stroke width
+    borderWidth: 1,
+
+            xMin: -0.7,
+            xMax: 0.7,
+            yMin: 1.5,
+            yMax: 3.5,
+            borderColor: 'rgba(25, 25, 25)',
+            backgroundColor: 'rgba(0,0,0,0)'
+
+           }]
+      }
+  }
+    });
+
+    const data1 = {
+        datasets: [
+        {% for d in data2 %}
+        {
+            label: '{{ d[0] }}',
+            pointRadius: 4,
+         fill: false,
+         showLine: false,
+            data: [
+                {% for loc in d[1] %}
+                {
+                    x: {{ loc[0] }},
+                    y: {{ loc[1] }}
+
+                },
+                {% endfor %}
+            ],
+            backgroundColor: '{{ d[2] }}'
+            },
+        {% endfor %}
+        ]
+    };
+    // get chart canvas
+    var ctx1 = document.getElementById("myChart1").getContext("2d");
+
+    // create the chart using the chart canvas
+    var myChart1 = new Chart(ctx1, {
+    type: 'scatter',
+    data: data1,
+    options: {
+      responsive: false,
+   maintainAspectRatio: true,
+    scales: {
+        xAxes: [{
+            id: 'first-x-axis',
+            display: true,
+            stacked: true,
+            ticks: {
+                min: -2.8, // minimum value
+                max: 2.8 // maximum value
+            }
+        }],
+        yAxes: [{
+            id: 'first-y-axis',
+            display: true,
+            stacked: true,
+            ticks: {
+                min: 0, // minimum value
+                max: 8 // maximum value
+            }
+        }]
+    },
+      annotation: {
+        drawTime: 'beforeDatasetsDraw',
+        annotations: [{
+            type: 'box',
+
+    // optional drawTime to control layering, overrides global drawTime setting
+    drawTime: 'beforeDatasetsDraw',
+
+    // optional annotation ID (must be unique)
+    id: 'a-box-1',
+
+    // ID of the X scale to bind onto
+    xScaleID: 'first-x-axis',
+
+    // ID of the Y scale to bind onto
+    yScaleID: 'first-y-axis',
+
+    // Stroke width
+    borderWidth: 1,
+
+            xMin: -0.7,
+            xMax: 0.7,
+            yMin: 1.5,
+            yMax: 3.5,
+            borderColor: 'rgba(25, 25, 25)',
+            backgroundColor: 'rgba(0,0,0,0)'
+
+           }]
+      }
+  }
+    });
+
+    const data2 = {
+        datasets: [
+        {% for d in data3 %}
+        {
+            label: '{{ d[0] }}',
+            pointRadius: 4,
+         fill: false,
+         showLine: false,
+            data: [
+                {% for loc in d[1] %}
+                {
+                    x: {{ loc[0] }},
+                    y: {{ loc[1] }}
+
+                },
+                {% endfor %}
+            ],
+            backgroundColor: '{{ d[2] }}'
+            },
+        {% endfor %}
+         {
+            pointRadius: 1,
+            data: [{
+                    x: 0,
+                    y: 0
+
+                },
+                {
+                    x: 233.4,
+                    y: 233.4
+
+                }],
+                borderColor: 'rgb(0, 0, 0)',
+            backgroundColor:  'rgba(0,0,0,0)',
+
+          // Changes this dataset to become a line
+          type: 'line'
+        }, {
+            pointRadius: 1,
+            data: [{
+                    x: 0,
+                    y: 0
+
+                },
+                {
+                    x: -233.4,
+                    y: 233.4
+
+                }],
+                borderColor: 'rgb(0, 0, 0)',
+            backgroundColor:  'rgba(0,0,0,0)',
+
+          // Changes this dataset to become a line
+          type: 'line'
+        }, {
+            pointRadius: 1,
+            data: [{
+                    x: 233.4,
+                    y: 233.4
+
+                },
+                {
+                    x: 175,
+                    y: 298
+
+                },
+                {
+                    x: 135,
+                    y: 335
+
+                },
+                {
+                    x: 0,
+                    y: 405
+
+                },
+                {
+                    x: -135,
+                    y: 335
+
+                },
+                {
+                    x: -175,
+                    y: 298
+
+                },
+                {
+                    x: -233.4,
+                    y: 233.4
+
+                }],
+                borderColor: 'rgb(0, 0, 0)',
+            backgroundColor:  'rgba(0,0,0,0)',
+
+          // Changes this dataset to become a line
+          type: 'line'
+        }]
+    };
+    // get chart canvas
+    var ctx2 = document.getElementById("myChart2").getContext("2d");
+
+    // create the chart using the chart canvas
+    var myChart2 = new Chart(ctx2, {
+    type: 'scatter',
+    data: data2,
+    options: {
+      responsive: false,
+   maintainAspectRatio: true,
+
+      annotation: {
+        drawTime: 'beforeDatasetsDraw',
+        annotations: [{
+            type: 'line',
+
+    // optional drawTime to control layering, overrides global drawTime setting
+    drawTime: 'beforeDatasetsDraw',
+
+    // optional annotation ID (must be unique)
+    id: 'a-line-1',
+
+    // ID of the X scale to bind onto
+    xScaleID: 'first-x-axis',
+
+    // ID of the Y scale to bind onto
+    yScaleID: 'first-y-axis',
+
+    // Stroke width
+    borderWidth: 1,
+
+            xMin: 0,
+            xMax: 63.64,
+            yMin: 0,
+            yMax: 63.64,
+            borderColor: 'rgba(25, 25, 25)',
+            backgroundColor: 'rgba(0,0,0,0)'
+
+           }]
+      }
+  }
+    });
+</script>
+
+{% endblock %}
